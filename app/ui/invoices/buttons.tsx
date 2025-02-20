@@ -21,7 +21,7 @@ export function UpdateInvoice({ id }: { id: string }) {
     >
       <PencilIcon className="w-5" />
     </Link>
-  );
+  ); 
 }
 
 export function DeleteInvoice({ id }: { id: string }) {
