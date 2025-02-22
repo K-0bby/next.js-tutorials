@@ -28,6 +28,7 @@ export type State = {
   message?: string | null;
 };
 export async function createInvoice(prevState: State, formData: FormData) {
+
   // Validate form using Zod
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get("customerId"),
@@ -36,7 +37,6 @@ export async function createInvoice(prevState: State, formData: FormData) {
   });
 
   // If validation fails, return errors early. Otherwise, continue
-
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -65,10 +65,9 @@ export async function createInvoice(prevState: State, formData: FormData) {
   redirect("/dashboard/invoices");
 }
 
+
 // Use Zod to update the expected types
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
-
-// ...
 
 export async function updateInvoice(
   id: string,
@@ -105,6 +104,7 @@ export async function updateInvoice(
   redirect('/dashboard/invoices');
 }
 
+// Delete an invoice 
 export async function deleteInvoice(id: string) {
   await sql`DELETE FROM invoices WHERE id = ${id}`;
   revalidatePath("/dashboard/invoices");
